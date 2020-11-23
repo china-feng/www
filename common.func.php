@@ -23,3 +23,25 @@ function deldir($path){
    }
   }
 }
+
+/**
+*异步执行
+*/
+ignore_user_abort(true); //表示忽略与用户的断开,继续向下执行,不然过了1s超时时间会停止执行的
+function asynch($data = array())
+{
+    $url = 'http://open.5qwan.local.com/src/OSS/2.php';//接受curl请求的地址
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, Array("Content-Type:application/json; charset=utf-8"));
+
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));//post方式数据为json格式
+    curl_setopt($ch, CURLOPT_TIMEOUT, 1);//设置超时时间为1s
+
+    $result = curl_exec($ch);
+    curl_close($ch);
+    return $result;
+}
