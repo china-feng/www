@@ -45,3 +45,11 @@ function asynch($data = array())
     curl_close($ch);
     return $result;
 }
+
+//保留几位小数  不进行四舍五入
+function formatFloat($num, $n){
+   return substr(sprintf('%.' . $n - 1 . 'f', $res['recharge_num'] / 100), 0, -1);
+}
+
+
+
