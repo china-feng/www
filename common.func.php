@@ -48,7 +48,7 @@ function asynch($data = array())
 
 //保留几位小数  不进行四舍五入
 function formatFloat($num, $n){
-   return substr(sprintf('%.' . $n - 1 . 'f', $res['recharge_num'] / 100), 0, -1);
+   return substr(sprintf('%.' . $n - 1 . 'f', $num / 100), 0, -1);
 }
 
 
