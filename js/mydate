@@ -1,0 +1,69 @@
+//提供两个方法，可以格式化时间
+//两个方法类似于php 两个同名函数用法
+function MyDate(){
+        /**
+         * 格式化的时间转时间戳
+         * @param timestr 字符串格式的时间 例：2022-04-30 or 2022-04-30 00:00:00
+         * @returns 毫秒时间戳
+         */
+        this.strtotime = function (timestr) {
+            if (timestr) {
+                let len = timestr.length;
+                // console.log(len);
+                switch (len) {
+                    case 4:
+                        timestr = timestr + "-01-01 00:00:00";
+                        break;
+                    case 7:
+                        timestr = timestr + "-01 00:00:00";
+                        break;
+                    case 10:
+                        timestr = timestr + " 00:00:00";
+                        break;
+                    case 19:
+                        break;
+                    default:
+                        return -1;
+                }
+                // console.log(timestr)
+                return new Date(timestr).getTime();
+            } else {
+                return new Date().getTime();
+            }
+        }
+
+        /**
+         * 将毫秒时间戳转化成特定格式
+         * @param format
+         * @param mill_timestamp
+         * @returns {string}
+         */
+        //Y 年；m 月；d 日；H 小时；i 分钟；s 秒
+        this.date = function (format = "Y-m-d H:i:s", mill_timestamp = 0) {
+            if (mill_timestamp === 0) {
+                mill_timestamp = new Date();
+            } else {
+                mill_timestamp = new Date(mill_timestamp);
+            }
+            let year = mill_timestamp.getFullYear();
+            let month = mill_timestamp.getMonth() + 1;
+            //let day = mill_timestamp.getDay(); //获取星期
+            let day = mill_timestamp.getDate();
+            let hour = mill_timestamp.getHours();
+            let minute = mill_timestamp.getMinutes();
+            let second = mill_timestamp.getSeconds();
+            year = year.toString(); //"Y-m-d H:i:s"
+            month = month < 10 ? "0" + month.toString() : month.toString();
+            day = day < 10 ? "0" + day.toString() : day.toString();
+            hour = hour < 10 ? "0" + hour.toString() : hour.toString();
+            minute = minute < 10 ? "0" + minute.toString() : minute.toString();
+            second = second < 10 ? "0" + second.toString() : second.toString();
+            format = format.replace("Y", year);
+            format = format.replace("m", month);
+            format = format.replace("d", day);
+            format = format.replace("H", hour);
+            format = format.replace("i", minute);
+            format = format.replace("s", second);
+            return format;
+        }
+    }
